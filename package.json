@@ -1,6 +1,6 @@
 {
   "name": "wmk-search",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "WMK Menu Classes and Components",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",

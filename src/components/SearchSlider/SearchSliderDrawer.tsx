@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Row, Col, Form, Container } from "react-bootstrap";
 import {
   IndexedSearch,
@@ -43,6 +43,7 @@ export const SearchSliderDrawer = ({
   useAlgorithm,
   resultConversion
 }: SearchSliderDrawerProps) => {
+  const [classedSearchIndex, setClassedSearchIndex] = useState<SearchIndex>();
   const [searchResults, setSearchResults] = useState<IndexedSearch[]>([]);
   const [searchKey, setSearchKey] = useState("");
   const _style = {
@@ -58,15 +59,13 @@ export const SearchSliderDrawer = ({
     overflow: isSearchOpen ? "scroll" : "hidden"
   };
 
-  const searchIndex = new SearchIndex(query);
-
   const EndResult = ({ result }: { result: SearchLink }) =>
     Result ? <Result result={result} /> : <DefaultResult result={result} />;
   const EndCloseIcon = CloseIcon ? CloseIcon : DefaultClose;
   const endAlgorithim = useAlgorithm ? useAlgorithm : defaultAlgorithm;
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    endAlgorithim(e, setSearchKey, searchIndex, setSearchResults);
+    endAlgorithim(e, setSearchKey, classedSearchIndex, setSearchResults);
   };
   const handleClose = () => {
     setIsSearchOpen(false);
@@ -78,6 +77,10 @@ export const SearchSliderDrawer = ({
   const _className = [];
   _className.push(isSearchOpen ? "search-open" : "search-closed");
   _className.push(className);
+
+  useEffect(() => {
+    setClassedSearchIndex(new SearchIndex(query));
+  }, [classedSearchIndex]);
   return (
     <div
       style={_style}
@@ -122,7 +125,7 @@ export const SearchSliderDrawer = ({
               {searchResults && searchResults.length > 0 && searchKey !== "" ? (
                 searchResults.map((result, i) => {
                   return (
-                    <Col key={result.nodeType + i}>
+                    <Col key={result.nodeType + i} onClick={handleClose}>
                       <EndResult result={resultConversion(result)} />
                     </Col>
                   );
