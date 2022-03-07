@@ -16,13 +16,13 @@ import {
 import CSS from "csstype";
 
 interface SearchSliderDrawerProps {
-  isSearchOpen?: boolean;
+  isSearchOpen: boolean;
   setIsSearchOpen: React.Dispatch<React.SetStateAction<boolean>>;
   query: SearchIndexQuery;
   Result?: ({ result }: { result: SearchLink }) => JSX.Element;
   CloseIcon?: () => JSX.Element;
-  className: string;
-  style: CSS.StandardProperties;
+  className?: string;
+  style?: CSS.StandardProperties;
   useAlgorithm?: (
     event: React.ChangeEvent<HTMLInputElement>,
     setSearchKey: React.Dispatch<React.SetStateAction<string>>,

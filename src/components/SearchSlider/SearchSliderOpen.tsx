@@ -3,11 +3,11 @@ import { wmkClass } from "../../logic";
 import CSS from "csstype";
 
 interface SearchSliderOpenProps {
-  isSearchOpen?: boolean;
+  isSearchOpen: boolean;
   setIsSearchOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  className: string;
+  className?: string;
   children: React.ReactNode;
-  style: CSS.StandardProperties;
+  style?: CSS.StandardProperties;
 }
 
 export const SearchSliderOpen = ({
