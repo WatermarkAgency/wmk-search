@@ -80,7 +80,7 @@ export const SearchSliderDrawer = ({
 
   useEffect(() => {
     setClassedSearchIndex(new SearchIndex(query));
-  }, [classedSearchIndex]);
+  }, []);
   return (
     <div
       style={_style}
