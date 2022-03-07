@@ -11,7 +11,7 @@ export interface SearchLink {
 
 export const DefaultResult = ({ result }: { result: SearchLink }) => {
   return (
-    <WmkLink to={result.to} target={result.target}>
+    <WmkLink to={result.to} target={result.target ? result.target : "self"}>
       {result.text}
     </WmkLink>
   );
