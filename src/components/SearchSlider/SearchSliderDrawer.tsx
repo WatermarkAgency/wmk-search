@@ -125,7 +125,7 @@ export const SearchSliderDrawer = ({
               {searchResults && searchResults.length > 0 && searchKey !== "" ? (
                 searchResults.map((result, i) => {
                   return (
-                    <Col key={result.nodeType + i}>
+                    <Col key={result.nodeType + i} onClick={handleClose}>
                       <EndResult result={resultConversion(result)} />
                     </Col>
                   );
