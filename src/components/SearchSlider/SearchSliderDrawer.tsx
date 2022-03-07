@@ -32,7 +32,7 @@ interface SearchSliderDrawerProps {
   resultConversion: (results: IndexedSearch) => SearchLink;
 }
 
-const SearchSliderDrawer = ({
+export const SearchSliderDrawer = ({
   isSearchOpen,
   setIsSearchOpen,
   query,
@@ -146,5 +146,3 @@ const SearchSliderDrawer = ({
     </div>
   );
 };
-
-export default SearchSliderDrawer;

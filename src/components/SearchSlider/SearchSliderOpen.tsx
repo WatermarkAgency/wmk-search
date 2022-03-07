@@ -10,7 +10,7 @@ interface SearchSliderOpenProps {
   style: CSS.StandardProperties;
 }
 
-const SearchSliderOpen = ({
+export const SearchSliderOpen = ({
   isSearchOpen,
   setIsSearchOpen,
   className,
@@ -33,5 +33,3 @@ const SearchSliderOpen = ({
     </button>
   );
 };
-
-export default SearchSliderOpen;
