@@ -69,6 +69,7 @@ export const SearchSliderDrawer = ({
   };
   const handleClose = () => {
     setIsSearchOpen(false);
+    setSearchKey("");
   };
   const handleSumbit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -114,6 +115,7 @@ export const SearchSliderDrawer = ({
             <Form.Control
               placeholder="Enter Search..."
               onChange={handleSearch}
+              value={searchKey}
             />
           </Form>
         </Col>
@@ -133,7 +135,7 @@ export const SearchSliderDrawer = ({
               ) : searchResults &&
                 searchResults.length < 1 &&
                 searchKey !== "" ? (
-                <Col>
+                <Col className="no-result">
                   <em>
                     No results matching <strong>{searchKey}</strong>.
                   </em>
