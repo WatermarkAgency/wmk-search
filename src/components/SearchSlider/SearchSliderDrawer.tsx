@@ -15,12 +15,16 @@ import {
 } from "./SearchSliderDefaults";
 import CSS from "csstype";
 
+type CloseButtonPositions = "top" | "in-bar";
+
 interface SearchSliderDrawerProps {
   isSearchOpen: boolean;
   setIsSearchOpen: React.Dispatch<React.SetStateAction<boolean>>;
   query: SearchIndexQuery;
   Result?: ({ result }: { result: SearchLink }) => JSX.Element;
   CloseIcon?: () => JSX.Element;
+  closeButtonPosition?: CloseButtonPositions;
+  closeButtonStyle?: React.CSSProperties;
   className?: string;
   style?: CSS.StandardProperties;
   useAlgorithm?: (
@@ -41,7 +45,9 @@ export const SearchSliderDrawer = ({
   className,
   style,
   useAlgorithm,
-  resultConversion
+  resultConversion,
+  closeButtonPosition = "top",
+  closeButtonStyle
 }: SearchSliderDrawerProps) => {
   const [classedSearchIndex, setClassedSearchIndex] = useState<SearchIndex>();
   const [searchResults, setSearchResults] = useState<IndexedSearch[]>([]);
@@ -95,12 +101,15 @@ export const SearchSliderDrawer = ({
             padding: "2vh 3vw",
             minHeight: "5rem"
           }}>
-          <button
-            onClick={handleClose}
-            aria-label="Close Search"
-            className="close">
-            <EndCloseIcon />
-          </button>
+          {closeButtonPosition === "top" ? (
+            <button
+              style={closeButtonStyle}
+              onClick={handleClose}
+              aria-label="Close Search"
+              className="close">
+              <EndCloseIcon />
+            </button>
+          ) : null}
         </Col>
         <Col
           style={{
@@ -109,9 +118,18 @@ export const SearchSliderDrawer = ({
             minHeight: "5rem"
           }}>
           <Form
-            style={{ width: "80%" }}
+            style={{ width: "80%", position: "relative" }}
             onSubmit={handleSumbit}
             className="search-form">
+            {closeButtonPosition === "in-bar" ? (
+              <button
+                style={closeButtonStyle}
+                onClick={handleClose}
+                aria-label="Close Search"
+                className="close">
+                <EndCloseIcon />
+              </button>
+            ) : null}
             <Form.Control
               placeholder="Enter Search..."
               onChange={handleSearch}
