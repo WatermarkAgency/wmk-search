@@ -47,7 +47,7 @@ interface SearchSliderDrawerProps {
 }
 ```
 
-#### In addtion to the _isSearchOpen_ and _setIsSearchOpen_ state variables, it is important that a parent component declares and manages _searchKey_, _setSearchKey_, _searchResults_ and _setSearchResults_.
+#### _searchKey_, _setSearchKey_, _searchResults_ and _setSearchResults_ are all managed internally, and do not need to be declared.
 
 ```js
 [searchKey, setSearchKey];
@@ -118,4 +118,28 @@ The idea is to map over each item within the IndexedSearch array. There should b
 
 The _<Result>_ and _<Close>_ components render each individual result (given SearchLink data), and the button / icon that will close the SearchDrawer.
 
-Finally, but most importanly is the _useAlgorithim_ method. It allows you to modify the default behavior of the search engine. By default, a result will return as a match if it's title property has a case-insensitive match to the search input. With this hook, you can recieve the search input, modify the primary property to compare, loop through the search index, and filter out desired results based on any criteria you choose.
+### useAlgorithim
+
+If you want to modify the default search behavior beyond just checking for entry titles, there is the _useAlgorithim_ method. With this hook, you recieve the input event, a setter to modify value the input is hooked up to, the search index, and a setter to modify the search results.
+
+Example: Modifying the search algorithm to compare titles and a stringified array of keywords
+
+```tsx
+<SearchDrawer
+  useAlgorithm={(e, setKey, index, setResults) => {
+    const search = e.currentTarget.value;
+    const results = index.index.filter((item) => {
+      // if keywords do not exist, return an empty array
+      const keywords = item.node?.keywords ? item.node.keywords : [];
+      // join the arry to the title string
+      const searchString = item.node.title + " " + keywords.join(", ");
+      // set up a regular expression to match the search query, case insensitive
+      const regex = new RegExp(search, "i");
+      // if there is a match, return the data from the search index
+      return Array.isArray(searchString.match(regex));
+    });
+    setResults(results);
+    setKey(search);
+  }}
+/>
+```
